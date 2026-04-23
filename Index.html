@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>DATAX Store</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+/* ACCUEIL */
+#home {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('images/tamby.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* overlay sombre */
+#home::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+}
+
+#home > * {
+    position: relative;
+    z-index: 2;
+}
+
+.logo {
+    font-size: 90px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    background: #38bdf8;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+
+/* SHOP */
+#shop {
+    display: none;
+    padding: 20px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* PRODUIT */
+.product {
+    background: #1e293b;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    width: 220px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* CONTACT */
+.contact {
+    margin-top: 40px;
+}
+
+/* POPUP */
+#orderBox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.popup {
+    background: #1e293b;
+    padding: 20px;
+    margin: 100px auto;
+    width: 300px;
+    border-radius: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- ACCUEIL -->
+<div id="home">
+    <div class="logo">DATAX</div>
+    <button onclick="enterShop()">Enter</button>
+</div>
+
+<!-- SHOP -->
+<div id="shop">
+
+    <h1><i>Welcome to DTX STORE</i></h1>
+    <h2>Our Products</h2>
+
+    <div class="products">
+
+        <div class="product" onclick="openOrder('Voltage Sensor ZMPT101', '15 000Ar')">
+            <img src="images/zmpt101.jpg">
+            <h3>Voltage Sensor ZMPT101</h3>
+            <p>15 000Ar</p>
+        </div>
+
+        <div class="product" onclick="openOrder('LCD 16x2 + I2C', '20 000Ar')">
+            <img src="images/lcd.jpg">
+            <h3>LCD 16x2 + I2C</h3>
+            <p>20 000Ar</p>
+        </div>
+
+        <div class="product" onclick="openOrder('Arduino UNO', '40 000Ar')">
+            <img src="images/arduinoU.jpg">
+            <h3>Arduino UNO</h3>
+            <p>40 000Ar</p>
+        </div>
+
+        <div class="product" onclick="openOrder('Arduino Mega', '85 000Ar')">
+            <img src="images/arduinoM.jpg">
+            <h3>Arduino Mega</h3>
+            <p>85 000Ar</p>
+        </div>
+
+    </div>
+
+    <div class="contact">
+        <h2>Contact</h2>
+        <p>Email: rakotonirianatamby@gmail.com</p>
+        <p>Phone: +261 38 15 727 61</p>
+    </div>
+
+    <button onclick="goHome()">Home</button>
+</div>
+
+<!-- POPUP -->
+<div id="orderBox">
+    <div class="popup">
+
+        <h3 id="productName"></h3>
+        <p id="productPrice"></p>
+
+        <input type="text" id="location" placeholder="Toerana livraison">
+
+        <select id="payment">
+            <option>Mvola</option>
+            <option>Cash Ã  la livraison</option>
+        </select>
+
+        <button onclick="confirmOrder()">Confirmer</button>
+        <button onclick="closeOrder()">Annuler</button>
+
+    </div>
+</div>
+
+<script>
+function enterShop() {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("shop").style.display = "block";
+}
+
+function goHome() {
+    document.getElementById("shop").style.display = "none";
+    document.getElementById("home").style.display = "flex";
+}
+
+function openOrder(name, price) {
+    document.getElementById("orderBox").style.display = "block";
+    document.getElementById("productName").innerText = name;
+    document.getElementById("productPrice").innerText = price;
+}
+
+function closeOrder() {
+    document.getElementById("orderBox").style.display = "none";
+}
+
+function confirmOrder() {
+    let place = document.getElementById("location").value;
+    let payment = document.getElementById("payment").value;
+    let product = document.getElementById("productName").innerText;
+
+    alert(
+        "Commande confirmÃ©e!\n" +
+        "Produit: " + product + "\n" +
+        "Lieu: " + place + "\n" +
+        "Paiement: " + payment
+    );
+
+    closeOrder();
+}
+</script>
+
+</body>
+</html>
